@@ -30,13 +30,19 @@ class Channel_Fetcher(object):
         self.regionCode = regionCode
     
     def read_key(self):
+        """
+        This method will read api key from local file system
+        """
         with open(self.path_to_api_key) as F:
             key_file = json.load(F)
             self.api_key = key_file['key_2']
         # print(self.api_key) # for debug
     
     def fetch(self):
-        self.read_key()
+        """
+        This method will fetch data using youtube api
+        """
+        self.read_key() # read the key
         start_num = 50 
         channel_id = list() # will store all the channel objects
         next_page_token =  None
@@ -62,23 +68,40 @@ class Channel_Fetcher(object):
             if next_page_token is None:
                 break
 
-            if start_num >= 200:
+            if start_num >= 200: # so that we don't finish our daily quota. LOL
                 break
         return channel_id
  
     def parse_response(self,response_obj):
+        """
+        This method will parse the search_response returned by the youtube api.
+        parameters:
+        response_obj : youtube api response object
+        """
         channel_id_name_dict = dict() # to store key value pairs of channel_id and name
         for item in response_obj:
             channel_id_name_dict[item['snippet']['channelId']] = item['snippet']['channelTitle']
         return channel_id_name_dict
 
     def read_search_response(self,raw_response_obj = True):
+        """
+        This method will be called by the user to fetch the final results.
+        If the user wants raw output or processed json output depends on the raw_response_obj parameter
+        """
         search_response = self.fetch()
 
         if raw_response_obj == False:
             return search_response
         else:
-            return self.parse_response(search_response)
+            dict_channel = self.parse_response(search_response)
+    
+            # let's dump the result into json file
+            if os.path.isdir('./data/') == False:
+                os.mkdir('./data')
+            file_name = f'./data/{query_topic}_channel_id_name.json'
+            with open(file_name,'w') as F:
+                json.dump(dict_channel,F)
+            print('The result file is dumped in data folder of current dir')
 
 
 if __name__ == "__main__":

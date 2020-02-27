@@ -105,16 +105,11 @@ class Channel_Fetcher(object):
 
 
 if __name__ == "__main__":
-    query_topic = "deep learning"
+    query_topic = input('Enter query topic : ')
+
     cf  = Channel_Fetcher(path_to_api_key = "E:/google_api_key.json",query_topic=query_topic)
     dict_channel = cf.read_search_response(True)
     
-    # let's dump the result into json file
-    if os.path.isdir('./data/') == False:
-        os.mkdir('./data')
-    file_name = f'./data/{query_topic}_channel_id_name.json'
-    with open(file_name,'w') as F:
-        json.dump(dict_channel,F)
         
 
 

@@ -7,13 +7,10 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import os
 import json
-from tqdm import tqdm
-from datetime import datetime
-import traceback
-import pandas as pd
 
 
-class Channel_Fetcher(object):
+
+class ChannelFetcher(object):
     def __init__(self,path_to_api_key,query_topic,max_results=50,regionCode="IN"):
         """
         query_topic : topic for channel fetching e.g 'machine learning'
@@ -107,7 +104,7 @@ class Channel_Fetcher(object):
 if __name__ == "__main__":
     query_topic = input('Enter query topic : ')
 
-    cf  = Channel_Fetcher(path_to_api_key = "E:/google_api_key.json",query_topic=query_topic)
+    cf  = ChannelFetcher(path_to_api_key = "E:/google_api_key.json",query_topic=query_topic)
     dict_channel = cf.read_search_response(True)
     
         

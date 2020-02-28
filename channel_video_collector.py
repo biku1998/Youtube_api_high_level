@@ -27,6 +27,14 @@ class ChannelVideoCollector(object):
         with open(self.path_to_api_key) as F:
             key_file = json.load(F)
             self.api_key = key_file['key_2']
+
+    def get_resource(self):
+        self.read_key() #  read the api keys.
+        youtube = build(self.YOUTUBE_API_SERVICE_NAME,
+                        self.YOUTUBE_API_VERSION,
+                        developerKey = self.api_key,
+                        cache_discovery=False)
+        return youtube
     
     def read_channel_id(self):
         """
@@ -50,18 +58,16 @@ class ChannelVideoCollector(object):
         """
         This method will fetch all the upload id's for all the channels using channel id
         """
-        self.read_key() #  read the api keys.
         self.read_channel_id() # read channel id's 
         channel_list = list() # will store all the channel objects
-        next_page_token =  None
-        youtube = build(self.YOUTUBE_API_SERVICE_NAME,
-                        self.YOUTUBE_API_VERSION,
-                        developerKey = self.api_key,
-                        cache_discovery=False)
+        youtube  = self.get_resource() # create the resource
+        
         if self.channel_id_list is not None:
+            # print(self.channel_id_list)
             for ch in tqdm(self.channel_id_list):
-                channel = youtube.channels().list(id = self.channel_id_list[0],part = 'contentDetails').execute()
+                channel = youtube.channels().list(id = ch,part = 'contentDetails').execute()
                 # channel['items'][0]['contentDetails']['relatedPlaylists']['uploads']
+                # print((channel['items'][0]['contentDetails']['relatedPlaylists']['uploads']))
                 channel_list.append(channel['items'][0]['contentDetails']['relatedPlaylists']['uploads'])
             if os.path.isdir('./data/'):
                 file_name_prepare = self.channel_id_json_path.split('/')[2].strip().split('.')[0]
@@ -73,11 +79,67 @@ class ChannelVideoCollector(object):
             raise Exception('channel id list is not fetched yet. Please run the channel_id_collector module first')
 
     def fetch_videos_info(self):
-        if self.channels_upload_id_json_path is not None:
-            pass
+        if self.channels_upload_id_json_path is None: # change it to not None
+            self.channels_upload_id_json_path = "./data/content_upload_id_list_for_channels_related_to_machine learning_channel_id_name.json" # remove it
+
+            youtube = self.get_resource()
+            temp_upload_id = None
+            channel_id_list = []
+
+            # read the upload_id's in a list
+            channels_upload_id = list()
+            video_resource = None
+            with open(self.channels_upload_id_json_path) as F:
+                file_data = json.load(F) # list of all the channel id's
+                channel_id_list += file_data
+
+            for ch_id in tqdm(channel_id_list[:2]):
+                video_resource = self.fetch_all_video_with_channel_upload_id(ch_id)
+                # now we have to save the above data into a json object
+                channel_video_dict = dict()
+                channel_video_dict[ch_id] = video_resource
+                
+                if os.path.isdir('./data/')== False:
+                    os.mkdir('./data')
+                file_name = f'./data/channel_upload_id_{ch_id}_all_videos.json'
+                with open(file_name,'w') as F:
+                    json.dump(channel_video_dict,F)
+                    print(f'\nvideo data file dumped for {ch_id}!')
+            
+            print('Data collection completed for all channels.Please check the data folder in the current dir')
+            
+                
         else:
-            raise Exception('please run the fetch_upload_id method before running this module as \
-                channel upload id json file is not fetched yet')   
+            raise Exception("""please run the fetch_upload_id method before running this module as
+                channel upload id json file is not fetched yet""")   
+
+    def fetch_all_video_with_channel_upload_id(self,channel_upload_id):
+        """
+        This method will fetch all the videos for a particular channel given the channel Id
+        """
+        videos_raw = []
+        nextPageToken = None
+        if len(channel_upload_id) != 0:
+            youtube = self.get_resource()
+            
+            while True:
+                results = youtube.playlistItems().list(
+                    playlistId = channel_upload_id,
+                    part = 'snippet',
+                    maxResults = 50,
+                    pageToken = nextPageToken
+                ).execute()
+
+                videos_raw += results['items']
+                nextPageToken = results.get('nextPageToken')
+
+                if nextPageToken is None:
+                    break
+
+            return videos_raw                
+
+        else:
+            raise Exception('Empty channel type encountered !!!')
 
     def parse_response(self):
         pass
@@ -88,5 +150,7 @@ class ChannelVideoCollector(object):
 if __name__ == "__main__":
     cvc = ChannelVideoCollector(channel_id_json_path='./data/machine learning_channel_id_name.json',
             path_to_api_key='E:/google_api_key.json')
-    cvc.fetch_upload_id()
+    # cvc.fetch_upload_id()
+    cvc.fetch_videos_info()
+    # cvc.fetch_all_video_with_channel_upload_id()
 

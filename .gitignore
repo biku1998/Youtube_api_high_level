@@ -1,3 +1,4 @@
 .vscode
-data
+data/
 meta_data_for_channels/
+final_channel_data/

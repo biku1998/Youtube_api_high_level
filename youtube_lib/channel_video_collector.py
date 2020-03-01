@@ -80,7 +80,10 @@ class ChannelVideoCollector(object):
         else:
             raise Exception('channel id list is not fetched yet. Please run the channel_id_collector module first')
 
-    def fetch_videos_info(self):
+    def fetch_videos_info(self,max_n_channels = 20):
+        """
+        max_n_channels = only fetch video data from these many channels
+        """
         print("\nFetching every video information present in each channel channel !!\n")
         if self.channels_upload_id_json_path is not None:
 
@@ -95,7 +98,9 @@ class ChannelVideoCollector(object):
                 file_data = json.load(F) # list of all the channel id's
                 channel_id_list += file_data
 
-            for ch_id in tqdm(channel_id_list[:2]):
+            # print(len(channel_id_list))
+
+            for ch_id in tqdm(channel_id_list[:max_n_channels]):
                 video_resource = self.fetch_all_video_with_channel_upload_id(ch_id)
                 # now we have to save the above data into a json object
                 channel_video_dict = dict()

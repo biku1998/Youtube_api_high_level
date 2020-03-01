@@ -40,7 +40,7 @@ class ChannelVideoCollector(object):
         """
         This method will read all the channel id's from the given json path.
         """
-        print("\n Reading channel Id's ......\n")
+        print("\nReading channel Id's .....")
         if os.path.isfile(self.channel_id_json_path):
             channel_id_list = []
             with open(self.channel_id_json_path,'r') as F:
@@ -59,7 +59,7 @@ class ChannelVideoCollector(object):
         """
         This method will fetch all the upload id's for all the channels using channel id
         """
-        print("\nFetching upload id's of every channel !!\n")
+        print("\nFetching upload id's of every channel...")
         self.read_channel_id() # read channel id's 
         channel_list = list() # will store all the channel objects
         youtube  = self.get_resource() # create the resource
@@ -84,7 +84,7 @@ class ChannelVideoCollector(object):
         """
         max_n_channels = only fetch video data from these many channels
         """
-        print("\nFetching every video information present in each channel channel !!\n")
+        print("\nFetching every video information present in each channel....")
         if self.channels_upload_id_json_path is not None:
 
             youtube = self.get_resource()

@@ -12,9 +12,8 @@ pd.options.display.max_columns = 500
 pd.options.display.max_rows = 500
 
 class VideoStatsCollector(object):
-    def __init__(self,path_to_api_key = None,path_to_video_ids = None):
+    def __init__(self,path_to_api_key = None):
         self.path_to_api_key = path_to_api_key
-        self.path_to_video_ids = path_to_video_ids
         self.api_key = None
         self.YOUTUBE_API_SERVICE_NAME = 'youtube'
         self.YOUTUBE_API_VERSION = 'v3'
@@ -45,6 +44,7 @@ class VideoStatsCollector(object):
             return video_files
         else:
             raise Exception('data folder do not exists!!')
+        
     def parse_video_files(self,video_list = None):
         """
          This function will parse the video files and extract information required to pull video stats   

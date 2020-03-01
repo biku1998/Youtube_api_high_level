@@ -79,8 +79,7 @@ class ChannelVideoCollector(object):
             raise Exception('channel id list is not fetched yet. Please run the channel_id_collector module first')
 
     def fetch_videos_info(self):
-        if self.channels_upload_id_json_path is None: # change it to not None
-            self.channels_upload_id_json_path = "./data/content_upload_id_list_for_channels_related_to_machine learning_channel_id_name.json" # remove it
+        if self.channels_upload_id_json_path is not None:
 
             youtube = self.get_resource()
             temp_upload_id = None
@@ -140,17 +139,4 @@ class ChannelVideoCollector(object):
 
         else:
             raise Exception('Empty channel type encountered !!!')
-
-    def parse_response(self):
-        pass
-
-    def read_search_response(self):
-        pass
-
-if __name__ == "__main__":
-    cvc = ChannelVideoCollector(channel_id_json_path='./data/machine learning_channel_id_name.json',
-            path_to_api_key='E:/google_api_key.json')
-    # cvc.fetch_upload_id()
-    cvc.fetch_videos_info()
-    # cvc.fetch_all_video_with_channel_upload_id()
 

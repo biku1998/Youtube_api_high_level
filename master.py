@@ -30,7 +30,7 @@ def main():
 
     # cvc.read_channel_id()
     cvc.fetch_upload_id()
-    cvc.fetch_videos_info(max_n_channels=30)
+    cvc.fetch_videos_info(max_n_channels=5)
 
     sc = VideoStatsCollector(path_to_api_key='E:/google_api_key.json')
 

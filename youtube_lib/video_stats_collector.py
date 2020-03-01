@@ -216,22 +216,6 @@ class VideoStatsCollector(object):
         else:
             raise Exception('None type dataFrame or Stats list passed !!') 
 
-if __name__ == '__main__':
-    sc = VideoStatsCollector(path_to_api_key='E:/google_api_key.json')
-
-    # video_files_list = sc.get_all_video_files()
-    # ch_dfs = sc.parse_video_files(video_files_list)
-
-    # if os.path.isdir('./meta_data_for_channels') == False:
-    #     os.mkdir('./meta_data_for_channels')
-    
-    # for df in ch_dfs:
-    #     df_name = df['channelTitle'].unique()[0]
-    #     file_name = f'./meta_data_for_channels/meta_data_for_{df_name}.csv'
-    #     df.to_csv(file_name,index = False)
-
-    ch_video_id_list  = sc.read_csv_meta_files()
-    sc.collect_video_stats(ch_video_id_list)
 
 
         

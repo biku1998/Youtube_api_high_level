@@ -36,6 +36,7 @@ class VideoStatsCollector(object):
         return youtube
     
     def get_all_video_files(self):
+        print("\nReading all video id's !!\n")
         """
         This method will read all video_files name and return it
         """
@@ -44,8 +45,9 @@ class VideoStatsCollector(object):
             return video_files
         else:
             raise Exception('data folder do not exists!!')
-        
+
     def parse_video_files(self,video_list = None):
+        print("\nParsing all the video files to extract video id's and other information !!\n")
         """
          This function will parse the video files and extract information required to pull video stats   
         """
@@ -92,6 +94,8 @@ class VideoStatsCollector(object):
             raise Exception('Empty or None videos list passed !!')
     
     def read_csv_meta_files(self):
+
+        print("\nReading meta-data from csv's !!\n")
         if os.path.isdir('./meta_data_for_channels'):
             all_meta_data_csv_files = list(filter(lambda x:'.csv' in x ,os.listdir('./meta_data_for_channels')))
             return all_meta_data_csv_files
@@ -99,6 +103,7 @@ class VideoStatsCollector(object):
             raise Exception('No meta_data folder found')
     
     def collect_video_stats(self,channel_video_id_list):
+        print("\nFetching and building video statistics files !!\n")
         if len(channel_video_id_list) != 0:
             # we will loop through all the csv's
             for f in channel_video_id_list:

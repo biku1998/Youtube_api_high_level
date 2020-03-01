@@ -65,8 +65,12 @@ class ChannelFetcher(object):
             if next_page_token is None:
                 break
 
-            if start_num >= 200 or start_num >= max_ch_to_fetch: # so that we don't finish our daily quota. LOL
+            if start_num >= 200: # so that we don't finish our daily quota. LOL
                 break
+            
+            if start_num >= max_ch_to_fetch:
+                break
+
         return channel_id
  
     def parse_response(self,response_obj):
@@ -97,10 +101,10 @@ class ChannelFetcher(object):
             # let's dump the result into json file
             if os.path.isdir('./data/') == False:
                 os.mkdir('./data')
-            file_name = f'./data/{query_topic}_channel_id_name.json'
+            file_name = f'./data/{self.query_topic}_channel_id_name.json'
             with open(file_name,'w') as F:
                 json.dump(dict_channel,F)
-            print('The result file is dumped in data folder of current dir')
+            print('Channel Id fetching completed !!\n')
 
     
         

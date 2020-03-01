@@ -19,16 +19,16 @@ def main():
     if os.path.isdir('./final_channel_data/') == False:
         os.mkdir('./final_channel_data/')
 
-    query_topic = "deep learning"
+    query_topic = input('Enter query topic --- ')
 
     cf  = ChannelFetcher(path_to_api_key = "E:/google_api_key.json",query_topic=query_topic)
     
-    cf.read_search_response(max_ch_to_fetch=10) # will dump channel_id name mapping json
+    cf.read_search_response() # will dump channel_id name mapping json
 
     cvc = ChannelVideoCollector(channel_id_json_path=f'./data/{query_topic}_channel_id_name.json',
             path_to_api_key='E:/google_api_key.json')
 
-    cvc.read_channel_id()
+    # cvc.read_channel_id()
     cvc.fetch_upload_id()
     cvc.fetch_videos_info()
 

@@ -2,3 +2,4 @@
 data/
 meta_data_for_channels/
 final_channel_data/
+youtube_lib/__pycache__

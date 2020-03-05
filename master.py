@@ -23,7 +23,7 @@ def main():
 
     query_topic = input('Enter query topic --- ')
 
-    how_many_channels = int(input('Enter number of channels to consider when fetching data \n(large number of channels can exaust your daily youtube data api quota quickly): -- '))
+    how_many_channels = int(input('Enter number of channels to consider when fetching data \n(large number of channels can exhaust your daily youtube data api quota quickly): -- '))
 
     cf  = ChannelFetcher(path_to_api_key = API_KEY_PATH,query_topic=query_topic)
     

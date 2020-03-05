@@ -100,6 +100,8 @@ class ChannelVideoCollector(object):
 
             # print(len(channel_id_list))
 
+            print(f'Considering only {max_n_channels} channels for data collection : \n')
+
             for ch_id in tqdm(channel_id_list[:max_n_channels]):
                 video_resource = self.fetch_all_video_with_channel_upload_id(ch_id)
                 # now we have to save the above data into a json object
@@ -111,7 +113,7 @@ class ChannelVideoCollector(object):
                 file_name = f'./data/channel_upload_id_{ch_id}_all_videos.json'
                 with open(file_name,'w') as F:
                     json.dump(channel_video_dict,F)
-                    print(f'\nvideo data file dumped for {ch_id}!')
+                    # print(f'\nvideo data file dumped for {ch_id}!')
             
             print('Data collection completed for all channels.Please check the data folder in the current dir')
             

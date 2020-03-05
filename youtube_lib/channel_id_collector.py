@@ -35,7 +35,7 @@ class ChannelFetcher(object):
             self.api_key = key_file['key_2']
         # print(self.api_key) # for debug
     
-    def fetch(self,max_ch_to_fetch = 200):
+    def fetch(self):
         """
         This method will fetch data using youtube api
         """
@@ -68,8 +68,7 @@ class ChannelFetcher(object):
             if start_num >= 200: # so that we don't finish our daily quota. LOL
                 break
             
-            if start_num >= max_ch_to_fetch:
-                break
+            
 
         return channel_id
  
@@ -84,14 +83,14 @@ class ChannelFetcher(object):
             channel_id_name_dict[item['snippet']['channelId']] = item['snippet']['channelTitle']
         return channel_id_name_dict
 
-    def read_search_response(self,raw_response_obj = True,max_ch_to_fetch = 200):
+    def read_search_response(self,raw_response_obj = True):
         """
         This method will be called by the user to fetch the final results.
         If the user wants raw output or processed json output depends on the raw_response_obj parameter
         parameter :
         raw_response_obj : if False then the function will return raw output. No other modules will work.
         """
-        search_response = self.fetch(max_ch_to_fetch)
+        search_response = self.fetch()
 
         if raw_response_obj == False:
             return search_response

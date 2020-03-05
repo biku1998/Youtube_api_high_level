@@ -21,6 +21,8 @@ def main():
 
     query_topic = input('Enter query topic --- ')
 
+    how_many_channels = int(input('Enter number of channels to consider when fetching data \n(large number of channels can exaust your daily youtube data api quota quickly): -- '))
+
     cf  = ChannelFetcher(path_to_api_key = "E:/google_api_key.json",query_topic=query_topic)
     
     cf.read_search_response() # will dump channel_id name mapping json
@@ -30,7 +32,7 @@ def main():
 
     # cvc.read_channel_id()
     cvc.fetch_upload_id()
-    cvc.fetch_videos_info(max_n_channels=5)
+    cvc.fetch_videos_info(max_n_channels=how_many_channels)
 
     sc = VideoStatsCollector(path_to_api_key='E:/google_api_key.json')
 
@@ -47,9 +49,7 @@ def main():
     ch_video_id_list  = sc.read_csv_meta_files()
     sc.collect_video_stats(ch_video_id_list)
 
-
-
-
+    print('\nData collection completed. All the data is dumped in final_channel_data folder in the current dir.')
 
 
 

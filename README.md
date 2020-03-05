@@ -30,14 +30,15 @@ A small project that contains some high level libraries for fetching data from y
 
 ## Steps to create api key
 1. go to https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwiHpfyd0YLoAhXRfX0KHTkWAvIQFjAAegQICBAC&url=https%3A%2F%2Fconsole.developers.google.com%2F&usg=AOvVaw39ieEDI7pzBj4NtuzqS57M
-2. Create a new project
+2. agree to the terms 
  ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_1_.jpg)
-3. give a unique name to the project 
+3.  Create a new project
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_2_.jpg)
-4. search for youtube data api v3
+4. give a unique name to the project
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_3_.jpg)
-5. Enable the api
+5. search for youtube data api v3
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_4_.jpg)
-6. Creata credentials 
+6. Enable the api
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_5.jpg)
-7. ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_6.jpg)
+7. Creata credentials
+![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_6.jpg)

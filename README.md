@@ -42,3 +42,10 @@ A small project that contains some high level libraries for fetching data from y
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_5.jpg)
 7. Creata credentials
 ![Image description](https://github.com/biku1998/Youtube_api_high_level/blob/master/steps_screenshots/step_6.jpg)
+
+### Once you have the api key, store it somewhere locally in a json format
+like {'key_1':your_api_key}
+
+### after that put the path of the json file in the master.py file in the variable API_KEY_PATH
+
+### Run the master.py file
